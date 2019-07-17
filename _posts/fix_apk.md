@@ -1,7 +1,5 @@
 ## 下载地址
 
-## 下载地址
-
 http://dl-xda.xposed.info/framework/
 
 ## 修改 jar
@@ -16,8 +14,10 @@ http://dl-xda.xposed.info/framework/
 
 1. 使用改之理，修改 smali 文件相应的逻辑。
 2. 编译打包为 apk。
-    /* 1 java -jar 打印说明  2 ./  编译当前目录   */
 3. 如果 2 报错，使用命令查看错误信息 - \Work\com.example.testfix> java -jar apktool.jar  b  ./
+```
+ 1 java -jar 打印说明  2 ./  编译当前目录
+```
 4. 查看命令行报错信息，修改错误编辑文件，重新执行命令 查看是否继续报错。
 5. 编译通过之后，使用 2 流程签名打包。
 
@@ -27,12 +27,12 @@ http://dl-xda.xposed.info/framework/
 ## 修改特征
 
 1. Xposed xposed_shared.h  
-   installer 安装器包名 - de.robv.android.xposed.installer   -- com.jjdd.ppff 
+   installer 安装器包名 - de.robv.android.xposed.installer   -- com.jjdd.ppff
 2. Xposed xposed.h
    xposed.prop
-   libxposed_dalvik.so 
+   libxposed_dalvik.so
    libxposed_art.so
-   /system/framework/XposedBridge.jar 
+   /system/framework/XposedBridge.jar
    bin/XposedBridge.jar.newversion
    de.robv.android.xposed.XposedBridge  jar 的包名
 
@@ -43,9 +43,8 @@ http://dl-xda.xposed.info/framework/
 3. 从开始位，替换修改的内容，补充后面的内容到 00 结束位。
 4. 3 中补充的 00 位和原本 00 位之间多出的内容，由于没有头文件的读取成为无效内容，完成修改。
 
-5. 使用 ue 与原文件比较 二进制，确认修改内容。 
+5. 使用 ue 与原文件比较 二进制，确认修改内容。
 
 ## 进度
 
 1. 修改 app_process32_xposed 中的 de.robv.android.xposed.installer -- com.jjdd.ppff
-
