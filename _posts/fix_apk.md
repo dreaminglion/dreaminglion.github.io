@@ -13,9 +13,9 @@ http://dl-xda.xposed.info/framework/
 ## 重新打包
 
 1. 使用改之理，修改 smali 文件相应的逻辑。
-2. 编译打包为 apk。
+2. 编译打包为 apk。        
+// 1 java -jar 打印说明  2 ./  编译当前目录
 3. 如果 2 报错，使用命令查看错误信息 - \Work\com.example.testfix> java -jar apktool.jar  b  ./
-   - `1 java -jar 打印说明  2 ./  编译当前目录`
 4. 查看命令行报错信息，修改错误编辑文件，重新执行命令 查看是否继续报错。
 5. 编译通过之后，使用 2 流程签名打包。
 
