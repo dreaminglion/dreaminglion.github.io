@@ -21,7 +21,7 @@ GitHub：github.com/dreaminglion | 驾驶证：C1
 --------|--------------------------- | -------------------|--------------
 欧工国际软装 | 2014-07 至 2016-02 | Android 开发工程师 | 100-499人 &nbsp;&nbsp; A轮
 野兽派 | 2016-02 至 2018-04 | Android Leader | 100-499人 &nbsp;&nbsp; B轮
-麦年智能科技 | 2018-04 至今 | Android Leader | 20-99人 &nbsp;&nbsp; 独资
+神手软件 | 2018-04 至今 | Android Leader | 20-99人 &nbsp;&nbsp; 独资
 
 ## 教育经历
 
@@ -37,7 +37,7 @@ GitHub：github.com/dreaminglion | 驾驶证：C1
 - 熟练掌握 Java 语言基础，面向对象思想，以及 Java 单例模式，工厂模式，适配器模式等设计模式。
 - 熟练掌握 移动端接口定义，动态配置页面的展示、功能，预留未来业务可能的扩展，保证版本之间的兼容。
 - 熟练掌握 bash、zsh 等 Linux shell 工具的安装与使用。
-- 熟练掌握 jadx-gui、apktool、jd-gui、dex2jar 等工具和 Smali 语法，以及 Xposed 框架使用。
+- 熟练掌握 jadx-gui、apktool、jd-gui、dex2jar 等工具和 Smali 语法，以及 Xposed、magisk 框架使用。
 - 数量掌握 app 保活，任务队列、以及进程间通信等方式。
 - 熟练掌握 volley、glide、fresco 、RxJava、retrofit 等第三方开源项目的使用，以及对开源项目做些简单的功能样式的源码修改。
 - 熟练掌握 google gson 自定义反序列化，设置服务器缺省值的默认值，以及自定义解析。
@@ -193,7 +193,7 @@ GitHub：github.com/dreaminglion | 驾驶证：C1
 
 ### 项目六：神手多聊
 
-项目描述：聚合聊天工具，方便客户在 PC 管理多个账号的消息来往、朋友圈互动，标签分类，及生成订单数据的管理和统计。
+项目描述：聚合聊天工具，方便客户在 PC 管理多个微信账号的消息来往、朋友圈互动，标签分类，及生成订单数据的管理和统计。
 
 功能模块：   
 1.全类型消息收发，快捷语、关键字回复等智能客服模块。
