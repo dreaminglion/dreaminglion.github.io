@@ -97,6 +97,11 @@ git reset --hard  commitId 
 git push origin HEAD --force  删除服务器上的比你多的版本
 git reflog  查看按顺序的 commit 和 reset 的 id
 
+## 删除已版本控制的文件
+
+ git rm -r -n --cached "bin/"  -n 列出要被删除的文件
+ git rm -r --cached  "bin/"    删除版本控制
+
 ## 重新设置远程分支
 
 git remote set-url origin git@192.168.0.231:android/more-chat.git
