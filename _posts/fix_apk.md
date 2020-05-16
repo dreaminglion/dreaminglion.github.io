@@ -1,3 +1,15 @@
+---
+layout: post
+title:  "XP 二进制修改"
+date:   2016-10-31 16:54:00 +0800
+categories: reverse
+---
+
+
+使用二级制文件修改器，修改XP特征，不像重新编译那么繁重！
+
+<!-- more -->
+
 ## 下载地址
 
 http://dl-xda.xposed.info/framework/
@@ -20,7 +32,7 @@ http://dl-xda.xposed.info/framework/
 5. 编译通过之后，使用 2 流程签名打包。
 
 
-# xp 编译修改
+## xp 编译修改
 
 ## 修改特征
 
