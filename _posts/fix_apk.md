@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "XP 二进制修改"
-date:   2016-10-31 16:54:00 +0800
+date:   2019-10-31 16:54:00 +0800
 categories: reverse
 ---
 
