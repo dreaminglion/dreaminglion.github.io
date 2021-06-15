@@ -39,3 +39,7 @@ $ hexo deploy
 ```
 
 More info: [Deployment](https://hexo.io/docs/deployment.html)
+
+``` bash
+$ hexo g d  //快捷编译命令。
+```

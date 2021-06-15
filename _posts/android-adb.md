@@ -12,6 +12,8 @@ categories: android
 
 1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。
 
+<!-- more -->
+
 ```
 ClassLoader classLoader = MainActivity.class.getClassLoader();
 Class<?> loadClass = classLoader.loadClass("com.wanjian.puppet.Main");
