@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="Tinker补丁管理与快速接入，不修改代码逻辑。只需修改Application名称为SampleApplication。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tinker fast">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/tinker-fast/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Tinker补丁管理与快速接入，不修改代码逻辑。只需修改Application名称为SampleApplication。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/dreaminglion/dreaminglion.github.io/master/images/tinker-fast_bulid.jpg">
+<meta property="og:updated_time" content="2019-07-10T15:13:08.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tinker fast">
+<meta name="twitter:description" content="Tinker补丁管理与快速接入，不修改代码逻辑。只需修改Application名称为SampleApplication。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dreaminglion/dreaminglion.github.io/master/images/tinker-fast_bulid.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/tinker-fast/">
+
+
+
+
+
+  <title> tinker fast | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            resume
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/tinker-fast/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="shi.li">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hexo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                tinker fast
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-10T23:13:08+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/07/10/tinker-fast/" class="leancloud_visitors" data-flag-title="tinker fast">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">Visitors </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://www.tinkerpatch.com/Docs/intro" target="_blank" rel="noopener">Tinker</a>补丁管理与快速接入，不修改代码逻辑。只需修改Application名称为SampleApplication。</p>
+<a id="more"></a>
+
+<h2 id="SDK-接入"><a href="#SDK-接入" class="headerlink" title="SDK 接入"></a>SDK 接入</h2><h3 id="在项目根目录修改gradle-properties文件"><a href="#在项目根目录修改gradle-properties文件" class="headerlink" title="在项目根目录修改gradle.properties文件"></a>在项目根目录修改gradle.properties文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TINKER_VERSION=1.7.6</span><br><span class="line">TINKERPATCH_VERSION=1.0.1</span><br></pre></td></tr></table></figure>
+
+<p>引用tinker的版本号,以及快速接入SDK tinkerPatch 版本号。</p>
+<h3 id="添加-gradle-插件依赖"><a href="#添加-gradle-插件依赖" class="headerlink" title="添加 gradle 插件依赖"></a>添加 gradle 插件依赖</h3><p>在项目根目录的build.gradle添加tinkerPatch gradle引用。 ${TINKERPATCH_VERSION} 为上一步添加在gradle.properties中的属性。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">'com.android.tools.build:gradle:2.2.3'</span></span><br><span class="line">        //无需再单独引用tinker的其他库</span><br><span class="line">        classpath <span class="string">"com.tinkerpatch.sdk:tinkerpatch-gradle-plugin:<span class="variable">$&#123;TINKERPATCH_VERSION&#125;</span>"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在App项目的build-gradle添加SKD的引用。"><a href="#在App项目的build-gradle添加SKD的引用。" class="headerlink" title="在App项目的build.gradle添加SKD的引用。"></a>在App项目的build.gradle添加SKD的引用。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// multidex SampleApplication 中使用到的一个类包</span><br><span class="line">compile <span class="string">"com.android.support:multidex:1.0.1"</span></span><br><span class="line">//若使用annotation需要单独引用,对于tinker的其他库都无需再引用</span><br><span class="line">provided(<span class="string">"com.tencent.tinker:tinker-android-anno:<span class="variable">$&#123;TINKER_VERSION&#125;</span>"</span>) &#123; changing = <span class="literal">true</span> &#125;</span><br><span class="line">compile(<span class="string">"com.tinkerpatch.sdk:tinkerpatch-android-sdk:<span class="variable">$&#123;TINKERPATCH_VERSION&#125;</span>"</span>) &#123; changing = <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在App目录下添加tinkerpatch-gradle，单独管理tinker的配置。需要在App的build-gradle中进行引用-apply-from-‘tinkerpatch-gradle’。"><a href="#在App目录下添加tinkerpatch-gradle，单独管理tinker的配置。需要在App的build-gradle中进行引用-apply-from-‘tinkerpatch-gradle’。" class="headerlink" title="在App目录下添加tinkerpatch.gradle，单独管理tinker的配置。需要在App的build.gradle中进行引用  apply from: ‘tinkerpatch.gradle’。"></a>在App目录下添加tinkerpatch.gradle，单独管理tinker的配置。需要在App的build.gradle中进行引用  <strong>apply from: ‘tinkerpatch.gradle’</strong>。</h3><p>tinkerpatch.gradle :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'tinkerpatch-support'</span></span><br><span class="line">// <span class="variable">$&#123;buildDir&#125;</span> 取AS中App下build的文件夹路径</span><br><span class="line">def bakPath = file(<span class="string">"<span class="variable">$&#123;buildDir&#125;</span>/bakApk/"</span>)</span><br><span class="line"></span><br><span class="line">// 1.0.0 基准apk所在的文件夹</span><br><span class="line">def appName = <span class="string">"app-1.0.0-0109-19-19-40"</span></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 对于插件各参数的详细解析请参考</span><br><span class="line"> * http://tinkerpatch.com/Docs/SDK</span><br><span class="line"> */</span><br><span class="line">tinkerpatchSupport &#123;</span><br><span class="line">    // tinkerEnable 功能是否开启</span><br><span class="line">    tinkerEnable = <span class="literal">true</span></span><br><span class="line">    // 是否反射 Application 实现一键接入；一般来说，接入 Tinker 我们需要改造我们的 Application, 若这里为 <span class="literal">true</span>， 即我们无需对应用做任何改造即可接入。</span><br><span class="line">    reflectApplication = <span class="literal">true</span></span><br><span class="line">    // tinkerpatch 中注册的  appKey</span><br><span class="line">    appKey = <span class="string">"9f202100fd2d769c"</span></span><br><span class="line">    // 发布基准包apk的版本</span><br><span class="line">    appVersion = <span class="string">"1.0.0"</span></span><br><span class="line">    //取上文中def bakPath的路径</span><br><span class="line">    autoBackupApkPath = <span class="string">"<span class="variable">$&#123;bakPath&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    // 基准apk文件位置</span><br><span class="line">    baseApkFile = <span class="string">"<span class="variable">$&#123;bakPath&#125;</span>/<span class="variable">$&#123;appName&#125;</span>/app-release.apk"</span></span><br><span class="line">    // rf 不进行混淆，不混淆不会有 mapping.txt 生成</span><br><span class="line">    baseProguardMappingFile = <span class="string">"<span class="variable">$&#123;bakPath&#125;</span>/<span class="variable">$&#123;appName&#125;</span>/app-release-mapping.txt"</span></span><br><span class="line">    // 基准apk中资源文件</span><br><span class="line">    baseResourceRFile = <span class="string">"<span class="variable">$&#123;bakPath&#125;</span>/<span class="variable">$&#123;appName&#125;</span>/app-release-R.txt"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 一般来说,我们无需对下面的参数做任何的修改</span><br><span class="line"> * 对于各参数的详细介绍请参考:</span><br><span class="line"> * https://github.com/Tencent/tinker/wiki/Tinker-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97</span><br><span class="line"> */</span><br><span class="line">tinkerPatch &#123;</span><br><span class="line">    ignoreWarning = <span class="literal">false</span></span><br><span class="line">    useSign = <span class="literal">true</span></span><br><span class="line">    dex &#123;</span><br><span class="line">        dexMode = <span class="string">"jar"</span></span><br><span class="line">        pattern = [<span class="string">"classes*.dex"</span>]</span><br><span class="line">        loader = []</span><br><span class="line">    &#125;</span><br><span class="line">    lib &#123;</span><br><span class="line">        pattern = [<span class="string">"lib/*/*.so"</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res &#123;</span><br><span class="line">        pattern = [<span class="string">"res/*"</span>, <span class="string">"r/*"</span>, <span class="string">"assets/*"</span>, <span class="string">"resources.arsc"</span>, <span class="string">"AndroidManifest.xml"</span>]</span><br><span class="line">        ignoreChange = []</span><br><span class="line">        largeModSize = 100</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    packageConfig &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    sevenZip &#123;</span><br><span class="line">        zipArtifact = <span class="string">"com.tencent.mm:SevenZip:1.1.10"</span></span><br><span class="line">//        path = <span class="string">"/usr/local/bin/7za"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildConfig &#123;</span><br><span class="line">        keepDexApply = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在App项目的build-gradle引用tinkerpatch-gradle。"><a href="#在App项目的build-gradle引用tinkerpatch-gradle。" class="headerlink" title="在App项目的build.gradle引用tinkerpatch.gradle。"></a>在App项目的build.gradle引用tinkerpatch.gradle。</h3><p>app build.gradle :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">// 引用tinkerpatch.gradle</span><br><span class="line">apply from: &apos;tinkerpatch.gradle&apos;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion &apos;19&apos;</span><br><span class="line">    buildToolsVersion &quot;23.0.2&quot;</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId &quot;your applicationId&quot;</span><br><span class="line">        minSdkVersion 16</span><br><span class="line">        targetSdkVersion 19</span><br><span class="line">        versionCode 1</span><br><span class="line">        versionName &quot;1.0&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    signingConfigs &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            storeFile rootProject.file(&quot;keystore/package.jks&quot;)</span><br><span class="line">            storePassword &quot;your storePassword&quot;</span><br><span class="line">            keyAlias &quot;your keyAlias&quot;</span><br><span class="line">            keyPassword &quot;your keyPassword&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        debug &#123;</span><br><span class="line">            storeFile rootProject.file(&quot;keystore/debug.keystore&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            // rf 不进行混淆，不混淆不会有 mapping.txt 生成</span><br><span class="line">            minifyEnabled false</span><br><span class="line">            signingConfig signingConfigs.release</span><br><span class="line">            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">        debug &#123;</span><br><span class="line">            debuggable true</span><br><span class="line">            minifyEnabled false</span><br><span class="line">            signingConfig signingConfigs.debug</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sourceSets &#123;</span><br><span class="line">        main &#123;</span><br><span class="line">            jniLibs.srcDirs = [&apos;libs&apos;]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">        url &quot;https://jitpack.io&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])</span><br><span class="line">    testCompile &apos;junit:junit:4.12&apos;</span><br><span class="line">    compile &quot;com.android.support:multidex:1.0.1&quot;</span><br><span class="line">    //若使用annotation需要单独引用,对于tinker的其他库都无需再引用</span><br><span class="line">    provided(&quot;com.tencent.tinker:tinker-android-anno:$&#123;TINKER_VERSION&#125;&quot;) &#123; changing = true &#125;</span><br><span class="line">    compile(&quot;com.tinkerpatch.sdk:tinkerpatch-android-sdk:$&#123;TINKERPATCH_VERSION&#125;&quot;) &#123; changing = true &#125;</span><br><span class="line">    //    compile &apos;com.android.support:appcompat-v7:23.4.0&apos;</span><br><span class="line">    compile &apos;eu.the4thfloor.volley:com.android.volley:2015.05.28&apos;</span><br><span class="line">    compile &apos;com.google.code.gson:gson:2.7&apos;</span><br><span class="line">    compile &apos;com.jakewharton:butterknife:7.0.1&apos;</span><br><span class="line">    compile &apos;com.android.support:support-v4:24.2.1&apos;</span><br><span class="line">    compile &apos;com.android.support:recyclerview-v7:23.1.0&apos;</span><br><span class="line">    compile &apos;com.github.luckyandyzhang:CleverRecyclerView:1.0.0&apos;</span><br><span class="line">    compile &apos;com.squareup.picasso:picasso:2.5.2&apos;</span><br><span class="line">    compile &apos;com.bm.photoview:library:1.3.6&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始化-TinkerPatch-SDK"><a href="#初始化-TinkerPatch-SDK" class="headerlink" title="初始化 TinkerPatch SDK"></a>初始化 TinkerPatch SDK</h2><p>SampleApplication :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">public class SampleApplication extends Application &#123;</span><br><span class="line"></span><br><span class="line">    private static final String TAG = &quot;Tinker.SampleApp&quot;;</span><br><span class="line"></span><br><span class="line">    private ApplicationLike tinkerApplicationLike;</span><br><span class="line">    public SampleApplication() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate() &#123;</span><br><span class="line">        super.onCreate();</span><br><span class="line"></span><br><span class="line">        //我们可以从这里获得Tinker加载过程的信息</span><br><span class="line">        tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();</span><br><span class="line"></span><br><span class="line">        //开始检查是否有补丁，这里配置的是每隔访问3小时服务器是否有更新。</span><br><span class="line">        TinkerPatch.init(tinkerApplicationLike)</span><br><span class="line">                .reflectPatchLibrary()</span><br><span class="line">                .setPatchRollbackOnScreenOff(true)</span><br><span class="line">                .setPatchRestartOnSrceenOff(true);</span><br><span class="line"></span><br><span class="line">        //每隔3个小时去访问后台时候有更新,通过handler实现轮训的效果</span><br><span class="line">        new FetchPatchHandler().fetchPatchWithInterval(3);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void attachBaseContext(Context base) &#123;</span><br><span class="line">        super.attachBaseContext(base);</span><br><span class="line">        //you must install multiDex whatever tinker is installed!</span><br><span class="line">        MultiDex.install(base);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 在这里给出TinkerPatch的所有接口解释</span><br><span class="line">     * 更详细的解释请参考:http://tinkerpatch.com/Docs/api</span><br><span class="line">     */</span><br><span class="line">    private void useSample() &#123;</span><br><span class="line">        TinkerPatch.init(tinkerApplicationLike)</span><br><span class="line">                //是否自动反射Library路径,无须手动加载补丁中的So文件</span><br><span class="line">                //注意,调用在反射接口之后才能生效,你也可以使用Tinker的方式加载Library</span><br><span class="line">                .reflectPatchLibrary()</span><br><span class="line">                //向后台获取是否有补丁包更新,默认的访问间隔为3个小时</span><br><span class="line">                //若参数为true,即每次调用都会真正的访问后台配置</span><br><span class="line">                .fetchPatchUpdate(true)</span><br><span class="line">                //设置访问后台补丁包更新配置的时间间隔,默认为3个小时</span><br><span class="line">                .setFetchPatchIntervalByHours(3)</span><br><span class="line">                //向后台获得动态配置,默认的访问间隔为3个小时</span><br><span class="line">                //若参数为true,即每次调用都会真正的访问后台配置</span><br><span class="line">                .fetchDynamicConfig(new ConfigRequestCallback() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public void onSuccess(HashMap&lt;String, String&gt; hashMap) &#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    @Override</span><br><span class="line">                    public void onFail(Exception e) &#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, false)</span><br><span class="line">                //设置访问后台动态配置的时间间隔,默认为3个小时</span><br><span class="line">                .setFetchDynamicConfigIntervalByHours(3)</span><br><span class="line">                //设置当前渠道号,对于某些渠道我们可能会想屏蔽补丁功能</span><br><span class="line">                //设置渠道后,我们就可以使用后台的条件控制渠道更新</span><br><span class="line">                .setAppChannel(&quot;default&quot;)</span><br><span class="line">                //屏蔽部分渠道的补丁功能</span><br><span class="line">                .addIgnoreAppChannel(&quot;googleplay&quot;)</span><br><span class="line">                //设置tinkerpatch平台的条件下发参数</span><br><span class="line">                .setPatchCondition(&quot;test&quot;, &quot;1&quot;)</span><br><span class="line">                //设置补丁合成成功后,锁屏重启程序</span><br><span class="line">                //默认是等应用自然重启</span><br><span class="line">                .setPatchRestartOnSrceenOff(true)</span><br><span class="line">                //我们可以通过ResultCallBack设置对合成后的回调</span><br><span class="line">                //例如弹框什么</span><br><span class="line">                .setPatchResultCallback(new ResultCallBack() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public void onPatchResult(PatchResult patchResult) &#123;</span><br><span class="line">                        Log.i(TAG, &quot;onPatchResult callback here&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                //设置收到后台回退要求时,锁屏清除补丁</span><br><span class="line">                //默认是等主进程重启时自动清除</span><br><span class="line">                .setPatchRollbackOnScreenOff(true)</span><br><span class="line">                //我们可以通过RollbackCallBack设置对回退时的回调</span><br><span class="line">                .setPatchRollBackCallback(new RollbackCallBack() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public void onPatchRollback() &#123;</span><br><span class="line">                        Log.i(TAG, &quot;onPatchRollback callback here&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 自定义Tinker类的高级用法, 一般不推荐使用</span><br><span class="line">     * 更详细的解释请参考:http://tinkerpatch.com/Docs/api</span><br><span class="line">     */</span><br><span class="line">    private void complexSample() &#123;</span><br><span class="line">        TinkerPatch.Builder builder = new TinkerPatch.Builder(tinkerApplicationLike);</span><br><span class="line">        //修改tinker的构造函数,自定义类</span><br><span class="line">        builder.listener(new DefaultPatchListener(this))</span><br><span class="line">                .loadReporter(new DefaultLoadReporter(this))</span><br><span class="line">                .patchReporter(new DefaultPatchReporter(this))</span><br><span class="line">                .resultServiceClass(TinkerServerResultService.class)</span><br><span class="line">                .upgradePatch(new UpgradePatch())</span><br><span class="line">                .patchRequestCallback(new TinkerPatchRequestCallback());</span><br><span class="line"></span><br><span class="line">        TinkerPatch.init(builder.build());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="TinkerPatch使用步骤"><a href="#TinkerPatch使用步骤" class="headerlink" title="TinkerPatch使用步骤"></a>TinkerPatch使用步骤</h2><ul>
+<li>使用命令行 ./gradlew assembleRelease 生成基准包。<br><img src="https://raw.githubusercontent.com/dreaminglion/dreaminglion.github.io/master/images/tinker-fast_bulid.jpg" alt></li>
+<li>把基准包apk信息填入tinkerpatch.gradle文件中。</li>
+<li>修改代码bug,完成修改与基准包代码生成差异。</li>
+<li>使用命令行 ./gradlew tinkerPatchRelease 生成补丁包,补丁包将位于 build/outputs/tinkerPatch 中。</li>
+<li>把build/outputs/tinkerPatch/patch_signed_7zip.apk在<a href="http://www.tinkerpatch.com/Docs/start" target="_blank" rel="noopener">tinkerpatch</a>中进行发布.</li>
+<li><a href="http://www.tinkerpatch.com/Docs/rule" target="_blank" rel="noopener">灰度与条件下发</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏嗯,打赏哼!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinPay.png" alt="shi.li WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/10/photography/" rel="next" title="photography">
+                <i class="fa fa-chevron-left"></i> photography
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/10/travel_Japan/" rel="prev" title="travel japan">
+                travel japan <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="shi.li">
+          <p class="site-author-name" itemprop="name">shi.li</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreaminglion" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:763258230@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDK-接入"><span class="nav-number">1.</span> <span class="nav-text">SDK 接入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在项目根目录修改gradle-properties文件"><span class="nav-number">1.1.</span> <span class="nav-text">在项目根目录修改gradle.properties文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-gradle-插件依赖"><span class="nav-number">1.2.</span> <span class="nav-text">添加 gradle 插件依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在App项目的build-gradle添加SKD的引用。"><span class="nav-number">1.3.</span> <span class="nav-text">在App项目的build.gradle添加SKD的引用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在App目录下添加tinkerpatch-gradle，单独管理tinker的配置。需要在App的build-gradle中进行引用-apply-from-‘tinkerpatch-gradle’。"><span class="nav-number">1.4.</span> <span class="nav-text">在App目录下添加tinkerpatch.gradle，单独管理tinker的配置。需要在App的build.gradle中进行引用  apply from: ‘tinkerpatch.gradle’。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在App项目的build-gradle引用tinkerpatch-gradle。"><span class="nav-number">1.5.</span> <span class="nav-text">在App项目的build.gradle引用tinkerpatch.gradle。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化-TinkerPatch-SDK"><span class="nav-number">2.</span> <span class="nav-text">初始化 TinkerPatch SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TinkerPatch使用步骤"><span class="nav-number">3.</span> <span class="nav-text">TinkerPatch使用步骤</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shi.li</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("38j7k9u004GX5DBUpNaCFI9W-gzGzoHsz", "C4j8DoT3iRXNcINHe9BhsACv");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

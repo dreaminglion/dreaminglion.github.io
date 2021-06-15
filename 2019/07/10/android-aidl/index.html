@@ -1,0 +1,855 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="prepared to travel in japan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android-aidl">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/android-aidl/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="prepared to travel in japan">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-8c03408da9a40c6ad1a398a5e6298d10_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-1f4b5448d8c8f4ecfa97b81a8ce10989_r.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-33acdcfb0e07bfdbabaa340cb76a43f2_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-9709b40f6ae582accf173c43c5f64698_r.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-e5f861c02e20c34d667ab37129925f1e_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-cb8449762d34274426a3cf1d962dfedc_b.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-2b9f8d45a631a500f40b77b7bdfb443b_b.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-0aae119f9d71fd53943d99a018de5457_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-cf1522ec8dce7ac62d298c1e3122c1d6_r.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-cf872c0edcd70b18300bbba0a3fa2a30_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-18f6a07debbd9790b135a276e93a14f7_b.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-fd9037506b9617cc398a099c126a7fae_b.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-29cf875fd9b738f5ac4965db05b870ef_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-d27975684a88df2d77048a3e04a091cf_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-e8f0c6c8b910622d7f9ca5a452e17d20_b.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-6062b470ea01ce828a0161e827acfb1d_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-4b2a173b173016323526201f25caeb55_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-b4ccf7f8e4eb8097e3e99db7e18bb9aa_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-8623a6e828e79a7e41f6380ae036fa7b_b.jpg">
+<meta property="og:updated_time" content="2019-07-10T15:13:08.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android-aidl">
+<meta name="twitter:description" content="prepared to travel in japan">
+<meta name="twitter:image" content="https://pic1.zhimg.com/v2-8c03408da9a40c6ad1a398a5e6298d10_b.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/android-aidl/">
+
+
+
+
+
+  <title> android-aidl | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            resume
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/android-aidl/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="shi.li">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hexo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                android-aidl
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-10T23:13:08+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/07/10/android-aidl/" class="leancloud_visitors" data-flag-title="android-aidl">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">Visitors </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>prepared to travel in japan</p>
+<a id="more"></a>
+
+<h2 id="我喜欢项目"><a href="#我喜欢项目" class="headerlink" title="我喜欢项目"></a>我喜欢项目</h2><ol>
+<li>日式摇滚与live文化很感兴趣 <a href="http://eplus.jp/sys/main.jsp" target="_blank" rel="noopener">http://eplus.jp/sys/main.jsp</a></li>
+<li>特色美食</li>
+<li>动漫巡礼问题 <a href="http://m.qyer.com/guide/tokyo-acg/?campaign=guideapp&amp;category=sharelink" target="_blank" rel="noopener">http://m.qyer.com/guide/tokyo-acg/?campaign=guideapp&amp;category=sharelink</a></li>
+</ol>
+<h2 id="跨国游相关问题"><a href="#跨国游相关问题" class="headerlink" title="跨国游相关问题"></a>跨国游相关问题</h2><h3 id="货币"><a href="#货币" class="headerlink" title="货币"></a>货币</h3><p>信用卡：银联 日元与人命币直接兑换 visa、master 人命币换美元后兑换日元 ， 所以说银联比较合算。<br>日本 atm 可以使用银联卡直接取，有 110 日元的手续费。</p>
+<h3 id="Part1-认识日本地图-第一次去日本推荐去哪里？"><a href="#Part1-认识日本地图-第一次去日本推荐去哪里？" class="headerlink" title="Part1 认识日本地图+第一次去日本推荐去哪里？"></a>Part1 认识日本地图+第一次去日本推荐去哪里？</h3><p><img src="https://pic1.zhimg.com/v2-8c03408da9a40c6ad1a398a5e6298d10_b.jpg" alt></p>
+<p>第一次去日本的热门地方</p>
+<p><img src="https://pic4.zhimg.com/v2-1f4b5448d8c8f4ecfa97b81a8ce10989_r.jpg" alt></p>
+<p>七八月才能爬富士山</p>
+<p>东京 城市</p>
+<p>箱根 泡温泉</p>
+<p>河口湖 远眺富士山</p>
+<p>京都 日本古都、和服体验</p>
+<p>奈良 古迹和小鹿</p>
+<p>大阪 城市，小吃很多</p>
+<p>《东京》：<a href="http://guide.qyer.com/tokyo/" target="_blank" rel="noopener">http://guide.qyer.com/tokyo/</a><br>《京都》：<a href="http://guide.qyer.com/kyoto/" target="_blank" rel="noopener">http://guide.qyer.com/kyoto/</a><br>《大阪》：<a href="http://guide.qyer.com/osaka/" target="_blank" rel="noopener">http://guide.qyer.com/osaka/</a><br>《北海道》：<a href="http://guide.qyer.com/hokkaido/" target="_blank" rel="noopener">http://guide.qyer.com/hokkaido/</a></p>
+<p>Demo 1：关东7日 <a href="http://plan.qyer.com/trip/V2wJZVFmBz9TYVI9Cm0" target="_blank" rel="noopener">http://plan.qyer.com/trip/V2wJZVFmBz9TYVI9Cm0</a><br>Demo 2：东京6日 <a href="http://plan.qyer.com/trip/V2wJZVFmBz9TYVI9Cm0" target="_blank" rel="noopener">http://plan.qyer.com/trip/V2wJZVFmBz9TYVI9Cm0</a><br>Demo 3：关西7日 <a href="http://plan.qyer.com/trip/V2wJZFFmBzRTbVI7Cmo" target="_blank" rel="noopener">http://plan.qyer.com/trip/V2wJZFFmBzRTbVI7Cmo</a><br>Demo 4：关东-关西 7日 <a href="http://plan.qyer.com/trip/V2wJZFFmBzVTZFI-CmU" target="_blank" rel="noopener">http://plan.qyer.com/trip/V2wJZFFmBzVTZFI-CmU</a><br>Demo 5：关西-关东 9日 <a href="http://plan.qyer.com/trip/V2wJZFFmBzVTZFI9Cmk" target="_blank" rel="noopener">http://plan.qyer.com/trip/V2wJZFFmBzVTZFI9Cmk</a><br>Demo 6：北海道全境 12日 <a href="http://plan.qyer.com/trip/V2wJZFFmBzVTZFI-Cmk" target="_blank" rel="noopener">http://plan.qyer.com/trip/V2wJZFFmBzVTZFI-Cmk</a><br>Demo 7：关东+北海道 7日 <a href="http://plan.qyer.com/trip/V2wJZFFmBzBTYVI3Cm4" target="_blank" rel="noopener">http://plan.qyer.com/trip/V2wJZFFmBzBTYVI3Cm4</a>  </p>
+<h3 id="Part2-什么时间最合适？"><a href="#Part2-什么时间最合适？" class="headerlink" title="Part2 什么时间最合适？"></a>Part2 什么时间最合适？</h3><p><code>尽量避开日本自己的节日</code></p>
+<p><img src="https://pic2.zhimg.com/v2-33acdcfb0e07bfdbabaa340cb76a43f2_r.jpg" alt></p>
+<p>尽量早的预定酒店，避开旺季提前去。</p>
+<h3 id="Part3-签证：单次签-三年签-五年签"><a href="#Part3-签证：单次签-三年签-五年签" class="headerlink" title="Part3 签证：单次签/三年签/五年签"></a>Part3 签证：单次签/三年签/五年签</h3><p>鉴证资料 暂住证</p>
+<p><img src="https://pic4.zhimg.com/v2-9709b40f6ae582accf173c43c5f64698_r.jpg" alt></p>
+<p><img src="https://pic2.zhimg.com/v2-e5f861c02e20c34d667ab37129925f1e_b.jpg" alt></p>
+<p>签证不可个人办理，淘宝找有送签权的旅行社代签。</p>
+<p>签证时效为三个月，办理后三个月内不使用就作废了。</p>
+<p>不一定要旅行社定机票和酒店，可以自己定。</p>
+<h3 id="Part4-大机票的预订"><a href="#Part4-大机票的预订" class="headerlink" title="Part4 大机票的预订"></a>Part4 大机票的预订</h3><p><img src="https://pic1.zhimg.com/v2-cb8449762d34274426a3cf1d962dfedc_b.jpg" alt></p>
+<p>机票比价，主要买航空公司官网渠道。</p>
+<p>机票：出票时间要早快，该退签价格</p>
+<p>价格：廉价航空 1000+ 日本往返 ， 需要注意 行李托运，餐费等附加费用的总和。</p>
+<p>时间：注意不要晚上到的航班，公共交通关闭日本打车很贵。</p>
+<p>预定：提前两个月左右</p>
+<h3 id="Part5-住宿种类-推荐预订方式-一些tips"><a href="#Part5-住宿种类-推荐预订方式-一些tips" class="headerlink" title="Part5 住宿种类+推荐预订方式+一些tips"></a>Part5 住宿种类+推荐预订方式+一些tips</h3><p><img src="https://pic2.zhimg.com/v2-2b9f8d45a631a500f40b77b7bdfb443b_b.jpg" alt></p>
+<p>酒店价格：北京上海的 1.5 - 5倍 fuck ~<br>预定： 提前一个月以上，好的酒店要三个月左右。</p>
+<p><img src="https://pic3.zhimg.com/v2-0aae119f9d71fd53943d99a018de5457_b.jpg" alt></p>
+<p>青旅：上下铺 200 左右，单间近 500</p>
+<p>名宿：arbnb 不合法，可能涉及邻里纠纷。强烈不推荐，2018年3月，Airbnb已宣布今年6月起将把日本非法民宿全面下架。</p>
+<p>温泉酒店：2000+ 一晚</p>
+<p>网吧过夜</p>
+<h3 id="Part6-市内交通"><a href="#Part6-市内交通" class="headerlink" title="Part6 市内交通"></a>Part6 市内交通</h3><p>交通类型：公营地下铁、私铁各线、JR，购买交通卡可以都坐，不要买通票。</p>
+<p><img src="https://pic4.zhimg.com/v2-cf1522ec8dce7ac62d298c1e3122c1d6_r.jpg" alt></p>
+<p><img src="https://pic3.zhimg.com/v2-cf872c0edcd70b18300bbba0a3fa2a30_b.jpg" alt></p>
+<p>公交卡，可以座各种车还可以购物，相当于小型钱包。</p>
+<p><img src="https://pic1.zhimg.com/v2-18f6a07debbd9790b135a276e93a14f7_b.jpg" alt></p>
+<h4 id="查找路线"><a href="#查找路线" class="headerlink" title="查找路线"></a>查找路线</h4><p><img src="https://pic2.zhimg.com/v2-fd9037506b9617cc398a099c126a7fae_b.jpg" alt></p>
+<h3 id="Part7-城际交通"><a href="#Part7-城际交通" class="headerlink" title="Part7 城际交通"></a>Part7 城际交通</h3><p>铁路新干线</p>
+<p><img src="https://pic2.zhimg.com/v2-29cf875fd9b738f5ac4965db05b870ef_b.jpg" alt></p>
+<p><img src="https://pic4.zhimg.com/v2-d27975684a88df2d77048a3e04a091cf_b.jpg" alt></p>
+<p>jr pass 建议国内购买，会比日本便宜。国内卖的是票，需要到日本换取，注意票的信息是否与自己的符合。</p>
+<p>日本飞机</p>
+<p>乐淘航空、jetstar</p>
+<p><img src="https://pic1.zhimg.com/v2-e8f0c6c8b910622d7f9ca5a452e17d20_b.jpg" alt></p>
+<p><img src="https://pic3.zhimg.com/v2-6062b470ea01ce828a0161e827acfb1d_b.jpg" alt></p>
+<h3 id="Part9-吃吃吃"><a href="#Part9-吃吃吃" class="headerlink" title="Part9 吃吃吃"></a>Part9 吃吃吃</h3><p>和大众点评类似</p>
+<p><img src="https://pic4.zhimg.com/v2-4b2a173b173016323526201f25caeb55_b.jpg" alt></p>
+<p>米其林餐厅预定 <a href="http://gm.gnavi.co.jp/restaurant/" target="_blank" rel="noopener">http://gm.gnavi.co.jp/restaurant/</a></p>
+<p>米其林只是好吃标准，并不是档次，比如说：天妇罗、鳗鱼饭、居酒屋等。</p>
+<p>北海道的札幌 米其林三星 莫尼亚来 午餐 2400 - 6400日元 晚餐 6400 - 9900日元</p>
+<p>午餐比晚餐便宜很多。</p>
+<p>预约：推荐让酒店来预约。淘宝代理预约。预约了一定要按时去。</p>
+<h3 id="Part9-吃吃吃-1"><a href="#Part9-吃吃吃-1" class="headerlink" title="Part9 吃吃吃"></a>Part9 吃吃吃</h3><p><img src="https://pic4.zhimg.com/v2-b4ccf7f8e4eb8097e3e99db7e18bb9aa_r.jpg" alt></p>
+<p>提前做好购买的图文双语列表，购物须谨慎不懂的东西不要买。</p>
+<p>7 月份夏季折扣</p>
+<p>12 - 1 跨年打折季</p>
+<h3 id="Part10-语言不行怎么办？"><a href="#Part10-语言不行怎么办？" class="headerlink" title="Part10 语言不行怎么办？"></a>Part10 语言不行怎么办？</h3><p><img src="https://pic4.zhimg.com/v2-8623a6e828e79a7e41f6380ae036fa7b_b.jpg" alt></p>
+<p>中日其实大家都没那么大自信 speak english 。。。</p>
+<h3 id="Part11-负责人的旅行"><a href="#Part11-负责人的旅行" class="headerlink" title="Part11 负责人的旅行"></a>Part11 负责人的旅行</h3><ol>
+<li>不可随地丢垃圾，吐痰、插队什么什么的滴。</li>
+<li>不可以拍别人的脸和家里，以及部分餐馆的食物。</li>
+<li>注意自己讲话的声音大小，小声。</li>
+<li>日本垃圾分类非常严格，自己先收起来交给便利店或者酒店帮忙处理。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏嗯,打赏哼!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinPay.png" alt="shi.li WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/10/design-mode/" rel="next" title="design mode">
+                <i class="fa fa-chevron-left"></i> design mode
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/10/development-environment/" rel="prev" title="development environment">
+                development environment <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="shi.li">
+          <p class="site-author-name" itemprop="name">shi.li</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreaminglion" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:763258230@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#我喜欢项目"><span class="nav-number">1.</span> <span class="nav-text">我喜欢项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨国游相关问题"><span class="nav-number">2.</span> <span class="nav-text">跨国游相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#货币"><span class="nav-number">2.1.</span> <span class="nav-text">货币</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part1-认识日本地图-第一次去日本推荐去哪里？"><span class="nav-number">2.2.</span> <span class="nav-text">Part1 认识日本地图+第一次去日本推荐去哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part2-什么时间最合适？"><span class="nav-number">2.3.</span> <span class="nav-text">Part2 什么时间最合适？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part3-签证：单次签-三年签-五年签"><span class="nav-number">2.4.</span> <span class="nav-text">Part3 签证：单次签/三年签/五年签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part4-大机票的预订"><span class="nav-number">2.5.</span> <span class="nav-text">Part4 大机票的预订</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part5-住宿种类-推荐预订方式-一些tips"><span class="nav-number">2.6.</span> <span class="nav-text">Part5 住宿种类+推荐预订方式+一些tips</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part6-市内交通"><span class="nav-number">2.7.</span> <span class="nav-text">Part6 市内交通</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查找路线"><span class="nav-number">2.7.1.</span> <span class="nav-text">查找路线</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part7-城际交通"><span class="nav-number">2.8.</span> <span class="nav-text">Part7 城际交通</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part9-吃吃吃"><span class="nav-number">2.9.</span> <span class="nav-text">Part9 吃吃吃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part9-吃吃吃-1"><span class="nav-number">2.10.</span> <span class="nav-text">Part9 吃吃吃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part10-语言不行怎么办？"><span class="nav-number">2.11.</span> <span class="nav-text">Part10 语言不行怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part11-负责人的旅行"><span class="nav-number">2.12.</span> <span class="nav-text">Part11 负责人的旅行</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shi.li</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("38j7k9u004GX5DBUpNaCFI9W-gzGzoHsz", "C4j8DoT3iRXNcINHe9BhsACv");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

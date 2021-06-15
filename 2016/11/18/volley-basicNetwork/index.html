@@ -1,0 +1,807 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="volly 源码阅读，解析 BasicNetwork、HurlStack 篇，执行 request 完成网络请求，得到网络返回数据 NetworkResponse。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="volley basic network">
+<meta property="og:url" content="http://yoursite.com/2016/11/18/volley-basicNetwork/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="volly 源码阅读，解析 BasicNetwork、HurlStack 篇，执行 request 完成网络请求，得到网络返回数据 NetworkResponse。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-10T15:13:08.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="volley basic network">
+<meta name="twitter:description" content="volly 源码阅读，解析 BasicNetwork、HurlStack 篇，执行 request 完成网络请求，得到网络返回数据 NetworkResponse。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/18/volley-basicNetwork/">
+
+
+
+
+
+  <title> volley basic network | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            resume
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/18/volley-basicNetwork/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="shi.li">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hexo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                volley basic network
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-18T22:15:00+08:00">
+                2016-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/reader/" itemprop="url" rel="index">
+                    <span itemprop="name">reader</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/18/volley-basicNetwork/" class="leancloud_visitors" data-flag-title="volley basic network">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">Visitors </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>volly 源码阅读，解析 BasicNetwork、HurlStack 篇，执行 request 完成网络请求，得到网络返回数据 NetworkResponse。</p>
+<a id="more"></a>
+
+<h2 id="BasicNetwork-对-request-做了些什么"><a href="#BasicNetwork-对-request-做了些什么" class="headerlink" title="BasicNetwork 对 request 做了些什么"></a>BasicNetwork 对 request 做了些什么</h2><p>由  NetworkResponse networkResponse = mNetwork.performRequest(request); 看到 BasicNetwork 执行 request 得到网络请求结果。其实这一层只是对缓存的 request 做了，处理实际网络请求还是由 HurlStack 执行 request 得到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   public NetworkResponse performRequest(Request&lt;?&gt; request) throws VolleyError &#123;</span><br><span class="line">       long requestStart = SystemClock.elapsedRealtime();</span><br><span class="line">       while (true) &#123;</span><br><span class="line">           HttpResponse httpResponse = null;</span><br><span class="line">           byte[] responseContents = null;</span><br><span class="line">           Map&lt;String, String&gt; responseHeaders = Collections.emptyMap();</span><br><span class="line">           try &#123;</span><br><span class="line">               // Gather headers.</span><br><span class="line">               Map&lt;String, String&gt; headers = new HashMap&lt;String, String&gt;();</span><br><span class="line">               addCacheHeaders(headers, request.getCacheEntry());</span><br><span class="line">               httpResponse = mHttpStack.performRequest(request, headers);</span><br><span class="line">               StatusLine statusLine = httpResponse.getStatusLine();</span><br><span class="line">               int statusCode = statusLine.getStatusCode();</span><br><span class="line"></span><br><span class="line">               responseHeaders = convertHeaders(httpResponse.getAllHeaders());</span><br><span class="line">               // Handle cache validation.</span><br><span class="line">               if (statusCode == HttpStatus.SC_NOT_MODIFIED) &#123;</span><br><span class="line"></span><br><span class="line">                   Entry entry = request.getCacheEntry();</span><br><span class="line">                   if (entry == null) &#123;</span><br><span class="line">                       return new NetworkResponse(HttpStatus.SC_NOT_MODIFIED, null,</span><br><span class="line">                               responseHeaders, true,</span><br><span class="line">                               SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">                   &#125;</span><br><span class="line"></span><br><span class="line">                   // A HTTP 304 response does not have all header fields. We</span><br><span class="line">                   // have to use the header fields from the cache entry plus</span><br><span class="line">                   // the new ones from the response.</span><br><span class="line">                   // http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5</span><br><span class="line">                   entry.responseHeaders.putAll(responseHeaders);</span><br><span class="line">                   return new NetworkResponse(HttpStatus.SC_NOT_MODIFIED, entry.data,</span><br><span class="line">                           entry.responseHeaders, true,</span><br><span class="line">                           SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               // Some responses such as 204s do not have content.  We must check.</span><br><span class="line">               if (httpResponse.getEntity() != null) &#123;</span><br><span class="line">                 responseContents = entityToBytes(httpResponse.getEntity());</span><br><span class="line">               &#125; else &#123;</span><br><span class="line">                 // Add 0 byte response as a way of honestly representing a</span><br><span class="line">                 // no-content request.</span><br><span class="line">                 responseContents = new byte[0];</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               // if the request is slow, log it.</span><br><span class="line">               long requestLifetime = SystemClock.elapsedRealtime() - requestStart;</span><br><span class="line">               logSlowRequests(requestLifetime, request, responseContents, statusLine);</span><br><span class="line"></span><br><span class="line">               if (statusCode &lt; 200 || statusCode &gt; 299) &#123;</span><br><span class="line">                   throw new IOException();</span><br><span class="line">               &#125;</span><br><span class="line">               return new NetworkResponse(statusCode, responseContents, responseHeaders, false,</span><br><span class="line">                       SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">           &#125; catch (SocketTimeoutException e) &#123;</span><br><span class="line">               attemptRetryOnException(&quot;socket&quot;, request, new TimeoutError());</span><br><span class="line">           &#125; catch (ConnectTimeoutException e) &#123;</span><br><span class="line">               attemptRetryOnException(&quot;connection&quot;, request, new TimeoutError());</span><br><span class="line">           &#125; catch (MalformedURLException e) &#123;</span><br><span class="line">               throw new RuntimeException(&quot;Bad URL &quot; + request.getUrl(), e);</span><br><span class="line">           &#125; catch (IOException e) &#123;</span><br><span class="line">               int statusCode = 0;</span><br><span class="line">               NetworkResponse networkResponse = null;</span><br><span class="line">               if (httpResponse != null) &#123;</span><br><span class="line">                   statusCode = httpResponse.getStatusLine().getStatusCode();</span><br><span class="line">               &#125; else &#123;</span><br><span class="line">                   throw new NoConnectionError(e);</span><br><span class="line">               &#125;</span><br><span class="line">               VolleyLog.e(&quot;Unexpected response code %d for %s&quot;, statusCode, request.getUrl());</span><br><span class="line">               if (responseContents != null) &#123;</span><br><span class="line">                   networkResponse = new NetworkResponse(statusCode, responseContents,</span><br><span class="line">                           responseHeaders, false, SystemClock.elapsedRealtime() - requestStart);</span><br><span class="line">                   if (statusCode == HttpStatus.SC_UNAUTHORIZED ||</span><br><span class="line">                           statusCode == HttpStatus.SC_FORBIDDEN) &#123;</span><br><span class="line">                       attemptRetryOnException(&quot;auth&quot;,</span><br><span class="line">                               request, new AuthFailureError(networkResponse));</span><br><span class="line">                   &#125; else &#123;</span><br><span class="line">                       // TODO: Only throw ServerError for 5xx status codes.</span><br><span class="line">                       throw new ServerError(networkResponse);</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125; else &#123;</span><br><span class="line">                   throw new NetworkError(networkResponse);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>addCacheHeaders(headers, request.getCacheEntry()); 看 request 是否有了缓存，对缓存对应的 header 进行处理。<br>httpResponse = mHttpStack.performRequest(request, headers); 关键的一步，由 mHttpStack 完成 request 的请求。<br>得到网络请求结果 httpResponse 的 statusCode ，如果 statusCode == HttpStatus.SC_NOT_MODIFIED 状态没有修改，直接返回 request.getCacheEntry() 作为网络请求的结果。<br>如果没有缓存，网络请求得到的 httpResponse.getEntity() 服务器给的 null 进行容错  responseContents = new byte[0];<br>最终 return new NetworkResponse(statusCode, responseContents, responseHeaders, false,SystemClock.elapsedRealtime() - requestStart); 返回网络请求结果。</p>
+<h2 id="HurlStack-真正执行-request-的网络处理"><a href="#HurlStack-真正执行-request-的网络处理" class="headerlink" title="HurlStack 真正执行 request 的网络处理"></a>HurlStack 真正执行 request 的网络处理</h2><p>An {@link HttpStack} based on {@link HttpURLConnection}. 看到熟悉的网络工具了吗？ <strong>HttpURLConnection</strong> 书本中通过 HttpURLConnection conn = url.openConnection(); InputStream inStream = conn.getInputStream(); 网络通过 byte[] 文件流读写，传送 request 和 response 的内容。</p>
+<p>构造方法，urlRewriter 对 request 的 URL 进行处理的工具，sslSocketFactory 开启 https 的工具。默认使用的构造方法都为 null。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param urlRewriter Rewriter to use for request URLs</span><br><span class="line"> * @param sslSocketFactory SSL factory to use for HTTPS connections</span><br><span class="line"> */</span><br><span class="line">public HurlStack(UrlRewriter urlRewriter, SSLSocketFactory sslSocketFactory) &#123;</span><br><span class="line">    mUrlRewriter = urlRewriter;</span><br><span class="line">    mSslSocketFactory = sslSocketFactory;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行 request 网络请求，additionalHeaders 缓存对应的额外 header。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public HttpResponse performRequest(Request&lt;?&gt; request, Map&lt;String, String&gt; additionalHeaders)</span><br><span class="line">        throws IOException, AuthFailureError &#123;</span><br><span class="line">    String url = request.getUrl();</span><br><span class="line">    HashMap&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();</span><br><span class="line">    map.putAll(request.getHeaders());</span><br><span class="line">    map.putAll(additionalHeaders);</span><br><span class="line">    if (mUrlRewriter != null) &#123;</span><br><span class="line">        String rewritten = mUrlRewriter.rewriteUrl(url);</span><br><span class="line">        if (rewritten == null) &#123;</span><br><span class="line">            throw new IOException(&quot;URL blocked by rewriter: &quot; + url);</span><br><span class="line">        &#125;</span><br><span class="line">        url = rewritten;</span><br><span class="line">    &#125;</span><br><span class="line">    URL parsedUrl = new URL(url);</span><br><span class="line">    HttpURLConnection connection = openConnection(parsedUrl, request);</span><br><span class="line">    for (String headerName : map.keySet()) &#123;</span><br><span class="line">        connection.addRequestProperty(headerName, map.get(headerName));</span><br><span class="line">    &#125;</span><br><span class="line">    setConnectionParametersForRequest(connection, request);</span><br><span class="line">    // Initialize HttpResponse with data from the HttpURLConnection.</span><br><span class="line">    ProtocolVersion protocolVersion = new ProtocolVersion(&quot;HTTP&quot;, 1, 1);</span><br><span class="line">    int responseCode = connection.getResponseCode();</span><br><span class="line">    if (responseCode == -1) &#123;</span><br><span class="line">        // -1 is returned by getResponseCode() if the response code could not be retrieved.</span><br><span class="line">        // Signal to the caller that something was wrong with the connection.</span><br><span class="line">        throw new IOException(&quot;Could not retrieve response code from HttpUrlConnection.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    StatusLine responseStatus = new BasicStatusLine(protocolVersion,</span><br><span class="line">            connection.getResponseCode(), connection.getResponseMessage());</span><br><span class="line">    BasicHttpResponse response = new BasicHttpResponse(responseStatus);</span><br><span class="line">    response.setEntity(entityFromConnection(connection));</span><br><span class="line">    for (Entry&lt;String, List&lt;String&gt;&gt; header : connection.getHeaderFields().entrySet()) &#123;</span><br><span class="line">        if (header.getKey() != null) &#123;</span><br><span class="line">            Header h = new BasicHeader(header.getKey(), header.getValue().get(0));</span><br><span class="line">            response.addHeader(h);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return response;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1.创建一个 map 把 request headers 和缓存的 additionalHeaders 加在一起。<br>2.当 mUrlRewriter 部位空的时候 String rewritten = mUrlRewriter.rewriteUrl(url); 对 url 进行处理。<br>3.使用 url 打开连接，如果有 ssl 打开 https。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private HttpURLConnection openConnection(URL url, Request&lt;?&gt; request) throws IOException &#123;</span><br><span class="line">    HttpURLConnection connection = createConnection(url);</span><br><span class="line"></span><br><span class="line">    int timeoutMs = request.getTimeoutMs();</span><br><span class="line">    connection.setConnectTimeout(timeoutMs);</span><br><span class="line">    connection.setReadTimeout(timeoutMs);</span><br><span class="line">    connection.setUseCaches(false);</span><br><span class="line">    connection.setDoInput(true);</span><br><span class="line"></span><br><span class="line">    // use caller-provided custom SslSocketFactory, if any, for HTTPS</span><br><span class="line">    if (&quot;https&quot;.equals(url.getProtocol()) &amp;&amp; mSslSocketFactory != null) &#123;</span><br><span class="line">        ((HttpsURLConnection)connection).setSSLSocketFactory(mSslSocketFactory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return connection;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.把所有的 headers 添加到 connection 中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (String headerName : map.keySet()) &#123;</span><br><span class="line">    connection.addRequestProperty(headerName, map.get(headerName));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.设置请求方式，并把请求的参数加入 connection 中，setConnectionParametersForRequest(connection, request);。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">byte[] postBody = request.getPostBody();</span><br><span class="line">if (postBody != null) &#123;</span><br><span class="line">    // Prepare output. There is no need to set Content-Length explicitly,</span><br><span class="line">    // since this is handled by HttpURLConnection using the size of the prepared</span><br><span class="line">    // output stream.</span><br><span class="line">    connection.setDoOutput(true);</span><br><span class="line">    connection.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">    connection.addRequestProperty(HEADER_CONTENT_TYPE,</span><br><span class="line">            request.getPostBodyContentType());</span><br><span class="line">    DataOutputStream out = new DataOutputStream(connection.getOutputStream());</span><br><span class="line">    out.write(postBody);</span><br><span class="line">    out.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6.设置 http 的协议版本（现在有 http 2 好像很牛） ProtocolVersion protocolVersion = new ProtocolVersion(“HTTP”, 1, 1);<br>7.从 connection 中拿到 response 的 statusCode 等信息，创建基础的 BasicHttpResponse</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StatusLine responseStatus = new BasicStatusLine(protocolVersion,</span><br><span class="line">        connection.getResponseCode(), connection.getResponseMessage());</span><br><span class="line">BasicHttpResponse response = new BasicHttpResponse(responseStatus);</span><br></pre></td></tr></table></figure>
+
+<p>8.给 response 设置返回的实体数据，通过输入文件流拿到文件的内容、长度、编码、类型等 response.setEntity(entityFromConnection(connection));</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">private static HttpEntity entityFromConnection(HttpURLConnection connection) &#123;</span><br><span class="line">    BasicHttpEntity entity = new BasicHttpEntity();</span><br><span class="line">    InputStream inputStream;</span><br><span class="line">    try &#123;</span><br><span class="line">        inputStream = connection.getInputStream();</span><br><span class="line">    &#125; catch (IOException ioe) &#123;</span><br><span class="line">        inputStream = connection.getErrorStream();</span><br><span class="line">    &#125;</span><br><span class="line">    entity.setContent(inputStream);</span><br><span class="line">    entity.setContentLength(connection.getContentLength());</span><br><span class="line">    entity.setContentEncoding(connection.getContentEncoding());</span><br><span class="line">    entity.setContentType(connection.getContentType());</span><br><span class="line">    return entity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>9.把 response 的 header 添加给 response 完成了请求，进行返回。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏嗯,打赏哼!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinPay.png" alt="shi.li WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/18/volley-request/" rel="next" title="volley request">
+                <i class="fa fa-chevron-left"></i> volley request
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/18/volley-reader/" rel="prev" title="volley reader">
+                volley reader <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="shi.li">
+          <p class="site-author-name" itemprop="name">shi.li</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreaminglion" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:763258230@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BasicNetwork-对-request-做了些什么"><span class="nav-number">1.</span> <span class="nav-text">BasicNetwork 对 request 做了些什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HurlStack-真正执行-request-的网络处理"><span class="nav-number">2.</span> <span class="nav-text">HurlStack 真正执行 request 的网络处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shi.li</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("38j7k9u004GX5DBUpNaCFI9W-gzGzoHsz", "C4j8DoT3iRXNcINHe9BhsACv");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

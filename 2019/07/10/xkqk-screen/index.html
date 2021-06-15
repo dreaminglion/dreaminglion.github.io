@@ -1,0 +1,799 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="使用方法 使用 adb 把 Main.dex 文件推送到手机硬盘，指定文件路径并运行 com.wanjian.puppet.Main class 文件。 使用 adb 连接指定 ip 和 port adb forward tcp:8888 localabstract:puppet-ver1 运行lib目录下的Client，用于显示和控制,点击连接按钮即可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视屏传输机制">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/xkqk-screen/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用方法 使用 adb 把 Main.dex 文件推送到手机硬盘，指定文件路径并运行 com.wanjian.puppet.Main class 文件。 使用 adb 连接指定 ip 和 port adb forward tcp:8888 localabstract:puppet-ver1 运行lib目录下的Client，用于显示和控制,点击连接按钮即可">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-10T15:13:08.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="视屏传输机制">
+<meta name="twitter:description" content="使用方法 使用 adb 把 Main.dex 文件推送到手机硬盘，指定文件路径并运行 com.wanjian.puppet.Main class 文件。 使用 adb 连接指定 ip 和 port adb forward tcp:8888 localabstract:puppet-ver1 运行lib目录下的Client，用于显示和控制,点击连接按钮即可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/xkqk-screen/">
+
+
+
+
+
+  <title> 视屏传输机制 | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            resume
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/xkqk-screen/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="shi.li">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hexo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                视屏传输机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-10T23:13:08+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/xkqk/" itemprop="url" rel="index">
+                    <span itemprop="name">xkqk</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/07/10/xkqk-screen/" class="leancloud_visitors" data-flag-title="视屏传输机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">Visitors </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ol>
+<li>使用 adb 把 Main.dex 文件推送到手机硬盘，指定文件路径并运行 com.wanjian.puppet.Main class 文件。</li>
+<li>使用 adb 连接指定 ip 和 port adb forward tcp:8888 localabstract:puppet-ver1</li>
+<li>运行lib目录下的Client，用于显示和控制,点击连接按钮即可</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="Main-dex"><a href="#Main-dex" class="headerlink" title="Main.dex"></a>Main.dex</h2><p>组成：由整个 lib 编辑成的 dex 文件。</p>
+<p>main 函数：</p>
+<ol>
+<li>获取连接的 client。</li>
+<li>读取客服端的命令执行对应的操作。</li>
+<li>获取手机的屏幕显示，通过 socket 的输出流把 bitmap 转为二进制数组进行发送。</li>
+</ol>
+<h3 id="screenshot-函数，获取手机显示-Bitmap。"><a href="#screenshot-函数，获取手机显示-Bitmap。" class="headerlink" title="screenshot() 函数，获取手机显示 Bitmap。"></a>screenshot() 函数，获取手机显示 Bitmap。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public static Bitmap screenshot() throws Exception &#123;</span><br><span class="line"></span><br><span class="line">    String surfaceClassName;</span><br><span class="line">    Point size = SurfaceControlVirtualDisplayFactory.getCurrentDisplaySize(false);</span><br><span class="line">    size.x *= scale;</span><br><span class="line">    size.y *= scale;</span><br><span class="line">    Bitmap b = null;</span><br><span class="line">    if (Build.VERSION.SDK_INT &lt;= 17) &#123;</span><br><span class="line">        surfaceClassName = &quot;android.view.Surface&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        surfaceClassName = &quot;android.view.SurfaceControl&quot;;</span><br><span class="line">        //  b = android.view.SurfaceControl.screenshot(size.x, size.y);</span><br><span class="line">    &#125;</span><br><span class="line">    b = (Bitmap) Class.forName(surfaceClassName).getDeclaredMethod(&quot;screenshot&quot;, new Class[]&#123;Integer.TYPE, Integer.TYPE&#125;).invoke(null, new Object[]&#123;Integer.valueOf(size.x), Integer.valueOf(size.y)&#125;);</span><br><span class="line"></span><br><span class="line">    int rotation = wm.getRotation();</span><br><span class="line"></span><br><span class="line">    if (rotation == 0) &#123;</span><br><span class="line">        return b;</span><br><span class="line">    &#125;</span><br><span class="line">    Matrix m = new Matrix();</span><br><span class="line">    if (rotation == 1) &#123;</span><br><span class="line">        m.postRotate(-90.0f);</span><br><span class="line">    &#125; else if (rotation == 2) &#123;</span><br><span class="line">        m.postRotate(-180.0f);</span><br><span class="line">    &#125; else if (rotation == 3) &#123;</span><br><span class="line">        m.postRotate(-270.0f);</span><br><span class="line">    &#125;</span><br><span class="line">    return Bitmap.createBitmap(b, 0, 0, size.x, size.y, m, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Android-手机服务器发送机制"><a href="#Android-手机服务器发送机制" class="headerlink" title="Android 手机服务器发送机制"></a>Android 手机服务器发送机制</h3><p><strong>在子线程中获取 socket 的输出流，通过无限循环的获取手机显示的 bitmap 使用输出流进行发送 bitmap 的二进制数组</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">private static void write(final LocalSocket socket) &#123;</span><br><span class="line">    new Thread() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            super.run();</span><br><span class="line">            try &#123;</span><br><span class="line">                final int VERSION = 2;</span><br><span class="line">                BufferedOutputStream outputStream = new BufferedOutputStream(socket.getOutputStream());</span><br><span class="line">                while (true) &#123;</span><br><span class="line">                    Bitmap bitmap = screenshot();</span><br><span class="line">                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();</span><br><span class="line">                    bitmap.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream);</span><br><span class="line"></span><br><span class="line">                    outputStream.write(2);</span><br><span class="line">                    writeInt(outputStream, byteArrayOutputStream.size());</span><br><span class="line">                    outputStream.write(byteArrayOutputStream.toByteArray());</span><br><span class="line">                    outputStream.flush();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Client-接收展示"><a href="#Client-接收展示" class="headerlink" title="Client 接收展示"></a>Client 接收展示</h2><p>创建客户端，连接手机的服务器，获取手机服务器发送的 image 对应的二进制流，转为 image，在 jui 的界面进行展示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *</span><br><span class="line"> * @param ip</span><br><span class="line"> * @param port</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *</span><br><span class="line"> * 通过 socket，连接手机做为的服务器端，获取服务器发送的文件流转为 image Image image = ImageIO.read(byteArrayInputStream);</span><br><span class="line"> * label.setIcon(new ScaleIcon(new ImageIcon(image))); 进行显示</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">private void read(final String ip, final String port) throws IOException &#123;</span><br><span class="line">    new Thread() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            super.run();</span><br><span class="line">            try &#123;</span><br><span class="line">                Socket socket = new Socket(ip, Integer.parseInt(port));</span><br><span class="line">                BufferedInputStream inputStream = new BufferedInputStream(socket.getInputStream());</span><br><span class="line">                writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));</span><br><span class="line">                byte[] bytes = null;</span><br><span class="line">                while (true) &#123;</span><br><span class="line">                    long s1 = System.currentTimeMillis();</span><br><span class="line">                    int version = inputStream.read();</span><br><span class="line">                    if (version == -1) &#123;</span><br><span class="line">                        return;</span><br><span class="line">                    &#125;</span><br><span class="line">                    int length = readInt(inputStream);</span><br><span class="line">                    if (bytes == null) &#123;</span><br><span class="line">                        bytes = new byte[length];</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (bytes.length &lt; length) &#123;</span><br><span class="line">                        bytes = new byte[length];</span><br><span class="line">                    &#125;</span><br><span class="line">                    int read = 0;</span><br><span class="line">                    while ((read &lt; length)) &#123;</span><br><span class="line">                        read += inputStream.read(bytes, read, length - read);</span><br><span class="line">                    &#125;</span><br><span class="line">                    InputStream byteArrayInputStream = new ByteArrayInputStream(bytes);</span><br><span class="line">                    long s2 = System.currentTimeMillis();</span><br><span class="line">                    Image image = ImageIO.read(byteArrayInputStream);</span><br><span class="line">                    label.setIcon(new ScaleIcon(new ImageIcon(image)));</span><br><span class="line">                    long s3 = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;.start();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏嗯,打赏哼!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinPay.png" alt="shi.li WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/10/zhang-yun/" rel="next" title="ui-show">
+                <i class="fa fa-chevron-left"></i> ui-show
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/30/shell-git/" rel="prev" title="shell git">
+                shell git <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="shi.li">
+          <p class="site-author-name" itemprop="name">shi.li</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreaminglion" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:763258230@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">1.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-dex"><span class="nav-number">2.</span> <span class="nav-text">Main.dex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#screenshot-函数，获取手机显示-Bitmap。"><span class="nav-number">2.1.</span> <span class="nav-text">screenshot() 函数，获取手机显示 Bitmap。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-手机服务器发送机制"><span class="nav-number">2.2.</span> <span class="nav-text">Android 手机服务器发送机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-接收展示"><span class="nav-number">3.</span> <span class="nav-text">Client 接收展示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shi.li</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("38j7k9u004GX5DBUpNaCFI9W-gzGzoHsz", "C4j8DoT3iRXNcINHe9BhsACv");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

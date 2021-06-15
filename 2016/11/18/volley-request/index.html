@@ -1,0 +1,876 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="volly 源码阅读，解析 request 篇。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="volley request">
+<meta property="og:url" content="http://yoursite.com/2016/11/18/volley-request/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="volly 源码阅读，解析 request 篇。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-10T15:13:08.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="volley request">
+<meta name="twitter:description" content="volly 源码阅读，解析 request 篇。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/18/volley-request/">
+
+
+
+
+
+  <title> volley request | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            resume
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/18/volley-request/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="shi.li">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hexo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                volley request
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-18T22:15:00+08:00">
+                2016-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/reader/" itemprop="url" rel="index">
+                    <span itemprop="name">reader</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/18/volley-request/" class="leancloud_visitors" data-flag-title="volley request">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">Visitors </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>volly 源码阅读，解析 request 篇。</p>
+<a id="more"></a>
+
+<h2 id="一个-request-我们需要做些什么"><a href="#一个-request-我们需要做些什么" class="headerlink" title="一个 request 我们需要做些什么"></a>一个 request 我们需要做些什么</h2><p>常见的两种 request 提交方式 1：Content-Type application/x-www-form-urlencoded 2：Content-Type application/json</p>
+<h3 id="form-表单-request-的使用"><a href="#form-表单-request-的使用" class="headerlink" title="form 表单 request 的使用"></a>form 表单 request 的使用</h3><p>在父类 request 中，已默认实现 getBodyContentType 为 application/x-www-form-urlencoded 表单请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public String getBodyContentType() &#123;</span><br><span class="line">    return &quot;application/x-www-form-urlencoded; charset=&quot; + getParamsEncoding();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个 request 请求对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 创建一个 gson 的请求对象</span><br><span class="line"> *</span><br><span class="line"> * @param method  请求的方式 get post delete put 等</span><br><span class="line"> * @param url     请求的路径 url</span><br><span class="line"> * @param clazz   请求成功，返回的数据类型</span><br><span class="line"> * @param headers 请求的 headers</span><br><span class="line"> * @param params  请求的参数</span><br><span class="line"> * @param listener  请求成功的回调</span><br><span class="line"> * @param errorListener  请求失败的回调</span><br><span class="line"> */</span><br><span class="line">public GsonRequest(int method,String url, Class&lt;T&gt; clazz, Map&lt;String, String&gt; headers, Map&lt;String, String&gt; params,</span><br><span class="line">                   Response.Listener&lt;T&gt; listener, Response.ErrorListener errorListener) &#123;</span><br><span class="line">    super(method, url, errorListener);</span><br><span class="line">    this.clazz = clazz;</span><br><span class="line">    this.headers = headers;</span><br><span class="line">    this.params = params;</span><br><span class="line">    this.listener = listener;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现 request 必要的传递 headers、params 和 abstract 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public Map&lt;String, String&gt; getHeaders() throws AuthFailureError &#123;</span><br><span class="line">    return headers != null ? headers : super.getHeaders();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">protected Map&lt;String, String&gt; getParams() throws AuthFailureError &#123;</span><br><span class="line">    return params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解析网络请求返回的 response ，获取 response.data 构建 gson.fromJson(json, clazz) 对象，和网络返回的 headers HttpHeaderParser.parseCacheHeaders(response)。</p>
+<ul>
+<li>扩展：业务 code 与 volley status code 共同回调 errorListener。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected Response&lt;T&gt; parseNetworkResponse(NetworkResponse response) &#123;</span><br><span class="line">       try &#123;</span><br><span class="line"></span><br><span class="line">           String json = new String(</span><br><span class="line">                   response.data,</span><br><span class="line">                   HttpHeaderParser.parseCharset(response.headers));</span><br><span class="line"></span><br><span class="line">                   // BaseBean 为传入类型 clazz 的父类</span><br><span class="line">                   BaseBean bean = Response.success(</span><br><span class="line">                           gson.fromJson(json, clazz),</span><br><span class="line">                           HttpHeaderParser.parseCacheHeaders(response));</span><br><span class="line"></span><br><span class="line">          if (bean.code == success_code) &#123;</span><br><span class="line">             return bean;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            return Response.error(new ParseError(response));</span><br><span class="line">          &#125;                 </span><br><span class="line">       &#125; catch (UnsupportedEncodingException e) &#123;</span><br><span class="line">           return Response.error(new ParseError(e));</span><br><span class="line">       &#125; catch (JsonSyntaxException e) &#123;</span><br><span class="line">           return Response.error(new ParseError(e));</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行请求成功的回调，完成一次网络请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void deliverResponse(T response) &#123;</span><br><span class="line">    listener.onResponse(response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="gson-体-request-的使用"><a href="#gson-体-request-的使用" class="headerlink" title="gson 体 request 的使用"></a>gson 体 request 的使用</h3><p>在父类 request 中，已默认实现 getBodyContentType 为 application/x-www-form-urlencoded 表单请求。所以实现 gson 请求我们需要复写父类的 getBodyContentType 方法，其它的可与上文保持一致。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * Default charset for JSON request.</span><br><span class="line">  */</span><br><span class="line">protected static final String PROTOCOL_CHARSET = &quot;utf-8&quot;;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Content type for request.</span><br><span class="line">   */</span><br><span class="line">private static final String PROTOCOL_CONTENT_TYPE =</span><br><span class="line">        String.format(&quot;application/json; charset=%s&quot;, PROTOCOL_CHARSET);</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public String getBodyContentType() &#123;</span><br><span class="line">        return PROTOCOL_CONTENT_TYPE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个 gson 请求体的 request 对象，我们也可以不使用 map params 的方式传递参数，由 requestBody 代替，传递 request 的请求参数，这样可以自由的传递参数。会使 getParams 方法返回的参数，不会再代码中使用到，下文源码解析中有说到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 创建一个 gson 的请求对象</span><br><span class="line"> *</span><br><span class="line"> * @param method  请求的方式 get post delete put 等</span><br><span class="line"> * @param url     请求的路径 url</span><br><span class="line"> * @param clazz   请求成功，返回的数据类型</span><br><span class="line"> * @param headers 请求的 headers</span><br><span class="line"> * @param requestBody  请求的参数</span><br><span class="line"> * @param listener  请求成功的回调</span><br><span class="line"> * @param errorListener  请求失败的回调</span><br><span class="line"> */</span><br><span class="line">public GsonRequest(int method,String url, Class&lt;T&gt; clazz, Map&lt;String, String&gt; headers, String requestBody,</span><br><span class="line">                   Response.Listener&lt;T&gt; listener, Response.ErrorListener errorListener) &#123;</span><br><span class="line">    super(method, url, errorListener);</span><br><span class="line">    this.clazz = clazz;</span><br><span class="line">    this.headers = headers;</span><br><span class="line">    this.requestBody = requestBody;</span><br><span class="line">    this.listener = listener;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传递 headers、解析 response 、分发请求与上相同。传递请求体 getParams() 由 getBody() 代替。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public byte[] getBody() &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">          return mRequestBody == null ? null : mRequestBody.getBytes(PROTOCOL_CHARSET);</span><br><span class="line">      &#125; catch (UnsupportedEncodingException uee) &#123;</span><br><span class="line">          VolleyLog.wtf(&quot;Unsupported Encoding while trying to get the bytes of %s using %s&quot;, mRequestBody, PROTOCOL_CHARSET);</span><br><span class="line">          return null;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Request-源码分析"><a href="#Request-源码分析" class="headerlink" title="Request 源码分析"></a>Request<t> 源码分析</t></h2><h3 id="一个-request-该有的一些属性"><a href="#一个-request-该有的一些属性" class="headerlink" title="一个 request 该有的一些属性"></a>一个 request 该有的一些属性</h3><ul>
+<li>private final int mMethod; 请求方法</li>
+<li>private final String mUrl; 请求路径</li>
+<li>private final Response.ErrorListener mErrorListener; 失败的 listener</li>
+<li>private final int mDefaultTrafficStatsTag; url 的 host.hashCode()，Default tag for {@link TrafficStats} 不知道干什么用滴 55 ~</li>
+<li>private Integer mSequence; 请求的序列号，用于 FIFO 先进先出</li>
+<li>private RequestQueue mRequestQueue; 请求所在的队列，用户完成请求从该队列删除</li>
+<li>private boolean mShouldCache = true; 是否进行缓存</li>
+<li>private boolean mCanceled = false; 是否取消了本次 request</li>
+<li>private boolean mResponseDelivered = false; 返回的结果 response 是否被传递下去</li>
+<li>private long mRequestBirthTime = 0; 请求开始的时间，用于计算一个请求用时</li>
+<li>private RetryPolicy mRetryPolicy; 请求的重试协议，隔多少秒、重试多少次</li>
+<li>private Cache.Entry mCacheEntry = null; request 对应的缓存</li>
+<li>private Object mTag; 一个 request 的标签，可在请求队列使用这个标签，取消标签对应的所有 request</li>
+</ul>
+<h3 id="一个-request-该有的一些方法"><a href="#一个-request-该有的一些方法" class="headerlink" title="一个 request 该有的一些方法"></a>一个 request 该有的一些方法</h3><p>设置请求的 tag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public Request&lt;?&gt; setTag(Object tag) &#123;</span><br><span class="line">        mTag = tag;</span><br><span class="line">        return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置 retry 协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public Request&lt;?&gt; setRetryPolicy(RetryPolicy retryPolicy) &#123;</span><br><span class="line">       mRetryPolicy = retryPolicy;</span><br><span class="line">       return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成请求，在队列中删除本次 request</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void finish(final String tag) &#123;</span><br><span class="line">        if (mRequestQueue != null) &#123;</span><br><span class="line">            mRequestQueue.finish(this);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置 request 的请求队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public Request&lt;?&gt; setRequestQueue(RequestQueue requestQueue) &#123;</span><br><span class="line">       mRequestQueue = requestQueue;</span><br><span class="line">       return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置 request 的序列号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public final Request&lt;?&gt; setSequence(int sequence) &#123;</span><br><span class="line">       mSequence = sequence;</span><br><span class="line">       return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置 request 的缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public Request&lt;?&gt; setCacheEntry(Cache.Entry entry) &#123;</span><br><span class="line">        mCacheEntry = entry;</span><br><span class="line">        return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>取消 request 请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void cancel() &#123;</span><br><span class="line">        mCanceled = true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取 request 的请求 headers，父类返回一个空的 map，一般子类去具体实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Map&lt;String, String&gt; getHeaders() throws AuthFailureError &#123;</span><br><span class="line">        return Collections.emptyMap();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取 request 的 params，父类的返回 null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protected Map&lt;String, String&gt; getParams() throws AuthFailureError &#123;</span><br><span class="line">       return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取 Conten-Type、Encoding 父类有默认的实现，默认的 form，UTF-8</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">protected String getParamsEncoding() &#123;</span><br><span class="line">      return DEFAULT_PARAMS_ENCODING;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Returns the content type of the POST or PUT body.</span><br><span class="line">   */</span><br><span class="line">public String getBodyContentType() &#123;</span><br><span class="line">      return &quot;application/x-www-form-urlencoded; charset=&quot; + getParamsEncoding();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置是否需要缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public final Request&lt;?&gt; setShouldCache(boolean shouldCache) &#123;</span><br><span class="line">        mShouldCache = shouldCache;</span><br><span class="line">        return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置 request 的优先级</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Priority getPriority() &#123;</span><br><span class="line">        return Priority.NORMAL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两个子类必须实现的 abstract 解析成功方法、分发成功的 response</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abstract protected Response&lt;T&gt; parseNetworkResponse(NetworkResponse response);</span><br><span class="line"></span><br><span class="line">abstract protected void deliverResponse(T response);</span><br></pre></td></tr></table></figure>
+
+<p>解析失败的 response 由父类实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">protected VolleyError parseNetworkError(VolleyError volleyError) &#123;</span><br><span class="line">     return volleyError;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> /**</span><br><span class="line">  * Delivers error message to the ErrorListener that the Request was</span><br><span class="line">  * initialized with.</span><br><span class="line">  *</span><br><span class="line">  * @param error Error details</span><br><span class="line">  */</span><br><span class="line"> public void deliverError(VolleyError error) &#123;</span><br><span class="line">     if (mErrorListener != null) &#123;</span><br><span class="line">         mErrorListener.onErrorResponse(error);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较其它 request 的优先级，对 request 进行排序，先进先出，进行请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public int compareTo(Request&lt;T&gt; other) &#123;</span><br><span class="line">       Priority left = this.getPriority();</span><br><span class="line">       Priority right = other.getPriority();</span><br><span class="line"></span><br><span class="line">       // High-priority requests are &quot;lesser&quot; so they are sorted to the front.</span><br><span class="line">       // Equal priorities are sorted by sequence number to provide FIFO ordering.</span><br><span class="line">       return left == right ?</span><br><span class="line">               this.mSequence - other.mSequence :</span><br><span class="line">               right.ordinal() - left.ordinal();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>其实 form 表达传递的 params 最后也会被解析为一个 byte[] 作为请求的 body，复写这个方法，可以实现 volley 传递复杂的参数，类似 afinal 中的 AjaxParams</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public byte[] getBody() throws AuthFailureError &#123;</span><br><span class="line">       Map&lt;String, String&gt; params = getParams();</span><br><span class="line">       if (params != null &amp;&amp; params.size() &gt; 0) &#123;</span><br><span class="line">           return encodeParameters(params, getParamsEncoding());</span><br><span class="line">       &#125;</span><br><span class="line">       return null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * Converts &lt;code&gt;params&lt;/code&gt; into an application/x-www-form-urlencoded encoded string.</span><br><span class="line">    */</span><br><span class="line">private byte[] encodeParameters(Map&lt;String, String&gt; params, String paramsEncoding) &#123;</span><br><span class="line">       StringBuilder encodedParams = new StringBuilder();</span><br><span class="line">       try &#123;</span><br><span class="line">           for (Map.Entry&lt;String, String&gt; entry : params.entrySet()) &#123;</span><br><span class="line">               encodedParams.append(URLEncoder.encode(entry.getKey(), paramsEncoding));</span><br><span class="line">               encodedParams.append(&apos;=&apos;);</span><br><span class="line">               encodedParams.append(URLEncoder.encode(entry.getValue(), paramsEncoding));</span><br><span class="line">               encodedParams.append(&apos;&amp;&apos;);</span><br><span class="line">           &#125;</span><br><span class="line">           return encodedParams.toString().getBytes(paramsEncoding);</span><br><span class="line">       &#125; catch (UnsupportedEncodingException uee) &#123;</span><br><span class="line">           throw new RuntimeException(&quot;Encoding not supported: &quot; + paramsEncoding, uee);</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="volley-用法扩展"><a href="#volley-用法扩展" class="headerlink" title="volley 用法扩展"></a>volley 用法扩展</h2><p>问题：volley 的 params 使用的是 map 进行传递的，许多网络框架 params 使用的是 list 传递，list 可以传递相同的 key，对传递数组比较方便，而 map 一般同学会认为 key-value 会覆盖上次的 value 无法传递数组。</p>
+<p>1.使用 IdentityHashMap 这个 map 的 key 使用的是 key 的内存地址，并不是 key 所对应的值。如下通过 new String(“d”) 作为 key 使用 volley 的 getParams() 就可以把 list 这个数组作为参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IdentityHashMap identityHashMap = new IdentityHashMap();</span><br><span class="line">identityHashMap.put(&quot;m&quot;, formData.m);</span><br><span class="line">identityHashMap.put(&quot;t&quot;, System.currentTimeMillis() + &quot;&quot;);</span><br><span class="line">for (int i = 0; i &lt; list.size(); i++) &#123;</span><br><span class="line">    identityHashMap.put(new String(&quot;d&quot;), list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.在自定义的 GsonRequest 中复写 byte[] getBody() 方法，自己对参数 params 进行封装，使用上文粗体方法 StringBuilder encodedParams = new StringBuilder() 对 params 进行拼接，并返回拼接后的 byte[] return encodedParams.toString().getBytes(paramsEncoding);</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏嗯,打赏哼!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinPay.png" alt="shi.li WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/18/volley-requestQueue/" rel="next" title="volley request queue">
+                <i class="fa fa-chevron-left"></i> volley request queue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/18/volley-basicNetwork/" rel="prev" title="volley basic network">
+                volley basic network <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="shi.li">
+          <p class="site-author-name" itemprop="name">shi.li</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreaminglion" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:763258230@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个-request-我们需要做些什么"><span class="nav-number">1.</span> <span class="nav-text">一个 request 我们需要做些什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#form-表单-request-的使用"><span class="nav-number">1.1.</span> <span class="nav-text">form 表单 request 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gson-体-request-的使用"><span class="nav-number">1.2.</span> <span class="nav-text">gson 体 request 的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Request-源码分析"><span class="nav-number">2.</span> <span class="nav-text">Request 源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个-request-该有的一些属性"><span class="nav-number">2.1.</span> <span class="nav-text">一个 request 该有的一些属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个-request-该有的一些方法"><span class="nav-number">2.2.</span> <span class="nav-text">一个 request 该有的一些方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volley-用法扩展"><span class="nav-number">3.</span> <span class="nav-text">volley 用法扩展</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shi.li</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("38j7k9u004GX5DBUpNaCFI9W-gzGzoHsz", "C4j8DoT3iRXNcINHe9BhsACv");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

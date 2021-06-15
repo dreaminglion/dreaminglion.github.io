@@ -1,0 +1,781 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="常用 mac、git 命令行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell git">
+<meta property="og:url" content="http://yoursite.com/2019/07/30/shell-git/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="常用 mac、git 命令行。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-30T14:45:22.397Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shell git">
+<meta name="twitter:description" content="常用 mac、git 命令行。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/30/shell-git/">
+
+
+
+
+
+  <title> shell git | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            resume
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/shell-git/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="shi.li">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hexo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hexo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                shell git
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-30T22:45:22+08:00">
+                2019-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/07/30/shell-git/" class="leancloud_visitors" data-flag-title="shell git">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">Visitors </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>常用 mac、git 命令行。</p>
+<a id="more"></a>
+
+<h2 id="gradle-打包"><a href="#gradle-打包" class="headerlink" title="gradle 打包"></a>gradle 打包</h2><p>./gradlew assembleRelease<br>./gradlew assembleDebug</p>
+<h2 id="mac-常用命令"><a href="#mac-常用命令" class="headerlink" title="mac 常用命令"></a>mac 常用命令</h2><p>ls 查看当前文件夹下的文件<br>pwd 查看当前路径<br>wq 退出文本浏览界面<br>cd ~ 回去根目录<br>cd .. 回到上级目录<br>-a  全部<br>-v  显示差异类容</p>
+<h2 id="vim-简单使用"><a href="#vim-简单使用" class="headerlink" title="vim 简单使用"></a>vim 简单使用</h2><p>git status 查看 git 空间的状态<br>git diff 查看文件的差别<br>vim 终端编辑文件<br>esc 退出文件编辑状态<br>shift + : 进入命令状态<br>w 写文件<br>q 退出  一般 wq 连用</p>
+<h2 id="创建本地-git-仓库"><a href="#创建本地-git-仓库" class="headerlink" title="创建本地 git 仓库"></a>创建本地 git 仓库</h2><p>mkdir WebApp      创建文件夹 WebApp<br>cd WebApp      进入文件夹<br>git init      初始化本地文件夹<br>touch README          创建文件 README<br>git add README 添加文件<br>git commit -m ‘first commit’<br>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:daixu/WebApp.git     增加一个远程服务器端</p>
+<h2 id="git-使用流程"><a href="#git-使用流程" class="headerlink" title="git 使用流程"></a>git 使用流程</h2><p>git status<br>git diff<br>git add<br>git commit<br>git pull<br>git push</p>
+<h2 id="branch-分支使用"><a href="#branch-分支使用" class="headerlink" title="branch 分支使用"></a>branch 分支使用</h2><h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>git fetch  同步远程信息<br>git branch -a  查看本地和远程所有分支</p>
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>git checkout -b lion  创建本地 lion 分支<br>git checkout -b local-branchname origin/remote_branchname  从远程分支，创建新分支<br>git branch lion master  从主分支 master 创建 lion 分支<br>git push origin lion  新分支推送到远程<br>git push –set-upstream origin lion  创建远程 lion 分支<br>git clone -b master <a href="https://github.com/dreaminglion/dreaminglion.github.io.git" target="_blank" rel="noopener">https://github.com/dreaminglion/dreaminglion.github.io.git</a>   克隆 master branch 到本地</p>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>git push origin :lion  删除远程分支 lion（:和分支名称连写）同3，不同写法<br>git branch -D lion  删除本地分支 lion<br>git push origin –delete <branchname>   删除远程分支branchName</branchname></p>
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>git checkout master  切换本地分支到 master</p>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>在当前使用分支，合并 lion 分支过来。</p>
+<p>git rebase lion<br>git merge lion<br>git pull origin lion</p>
+<h2 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h2><p>git tag v1.5   生成 tag v1.5<br>git push origin v1.5  发送对应版本的 tag<br>git push origin –tags  把所有 tag 发到服务器</p>
+<h2 id="git-回到以前版本："><a href="#git-回到以前版本：" class="headerlink" title="git 回到以前版本："></a>git 回到以前版本：</h2><p>git log  查看日志获取提交 commitId<br>git reset –hard  commitId<br>git push origin HEAD –force  删除服务器上的比你多的版本<br>git reflog  查看按顺序的 commit 和 reset 的 id</p>
+<h2 id="删除已版本控制的文件"><a href="#删除已版本控制的文件" class="headerlink" title="删除已版本控制的文件"></a>删除已版本控制的文件</h2><p> git rm -r -n –cached “bin/“  -n 列出要被删除的文件<br> git rm -r –cached  “bin/“    删除版本控制</p>
+<h2 id="重新设置远程分支"><a href="#重新设置远程分支" class="headerlink" title="重新设置远程分支"></a>重新设置远程分支</h2><p>git remote set-url origin <a href="mailto:git@192.168.0.231" target="_blank" rel="noopener">git@192.168.0.231</a>:android/more-chat.git</p>
+<h2 id="Command-line-instructions"><a href="#Command-line-instructions" class="headerlink" title="Command line instructions"></a>Command line instructions</h2><h3 id="Git-global-setup"><a href="#Git-global-setup" class="headerlink" title="Git global setup"></a>Git global setup</h3><p>git config –global user.name “shi.li”<br>git config –global user.email “<a href="mailto:763258230@qq.com" target="_blank" rel="noopener">763258230@qq.com</a>“</p>
+<h3 id="Create-a-new-repository"><a href="#Create-a-new-repository" class="headerlink" title="Create a new repository"></a>Create a new repository</h3><p>git clone <a href="mailto:git@192.168.0.231" target="_blank" rel="noopener">git@192.168.0.231</a>:shi.li/self-test.git<br>cd self-test<br>touch README.md<br>git add README.md<br>git commit -m “add README”<br>git push -u origin master</p>
+<h3 id="Existing-folder"><a href="#Existing-folder" class="headerlink" title="Existing folder"></a>Existing folder</h3><p>cd existing_folder<br>git init<br>git remote add origin <a href="mailto:git@192.168.0.231" target="_blank" rel="noopener">git@192.168.0.231</a>:shi.li/self-test.git<br>git add .<br>git commit -m “Initial commit”<br>git push -u origin master</p>
+<h3 id="Existing-Git-repository"><a href="#Existing-Git-repository" class="headerlink" title="Existing Git repository"></a>Existing Git repository</h3><p>cd existing_repo<br>git remote rename origin old-origin<br>git remote add origin <a href="mailto:git@192.168.0.231" target="_blank" rel="noopener">git@192.168.0.231</a>:shi.li/self-test.git<br>git push -u origin –all<br>git push -u origin –tags</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>打赏嗯,打赏哼!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinPay.png" alt="shi.li WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/10/xkqk-screen/" rel="next" title="视屏传输机制">
+                <i class="fa fa-chevron-left"></i> 视屏传输机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/31/fix_apk/" rel="prev" title="XP 二进制修改">
+                XP 二进制修改 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="shi.li">
+          <p class="site-author-name" itemprop="name">shi.li</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dreaminglion" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:763258230@qq.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gradle-打包"><span class="nav-number">1.</span> <span class="nav-text">gradle 打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mac-常用命令"><span class="nav-number">2.</span> <span class="nav-text">mac 常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim-简单使用"><span class="nav-number">3.</span> <span class="nav-text">vim 简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建本地-git-仓库"><span class="nav-number">4.</span> <span class="nav-text">创建本地 git 仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-使用流程"><span class="nav-number">5.</span> <span class="nav-text">git 使用流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#branch-分支使用"><span class="nav-number">6.</span> <span class="nav-text">branch 分支使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">6.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">6.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">6.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">6.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">6.5.</span> <span class="nav-text">合并分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-tag"><span class="nav-number">7.</span> <span class="nav-text">git tag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-回到以前版本："><span class="nav-number">8.</span> <span class="nav-text">git 回到以前版本：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除已版本控制的文件"><span class="nav-number">9.</span> <span class="nav-text">删除已版本控制的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新设置远程分支"><span class="nav-number">10.</span> <span class="nav-text">重新设置远程分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command-line-instructions"><span class="nav-number">11.</span> <span class="nav-text">Command line instructions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-global-setup"><span class="nav-number">11.1.</span> <span class="nav-text">Git global setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-repository"><span class="nav-number">11.2.</span> <span class="nav-text">Create a new repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Existing-folder"><span class="nav-number">11.3.</span> <span class="nav-text">Existing folder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Existing-Git-repository"><span class="nav-number">11.4.</span> <span class="nav-text">Existing Git repository</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shi.li</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("38j7k9u004GX5DBUpNaCFI9W-gzGzoHsz", "C4j8DoT3iRXNcINHe9BhsACv");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
