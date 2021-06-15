@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="android 运行 java main 函数在 android app 环境下运行1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。 1234ClassLoader classLoader = MainActivity.class.getClassLoader()">
+<meta name="description" content="android 运行 java main 函数在 android app 环境下运行1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android adb">
 <meta property="og:url" content="http://yoursite.com/2016/11/18/android-adb/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="android 运行 java main 函数在 android app 环境下运行1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。 1234ClassLoader classLoader = MainActivity.class.getClassLoader()">
+<meta property="og:description" content="android 运行 java main 函数在 android app 环境下运行1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-10T15:13:08.684Z">
+<meta property="og:updated_time" content="2021-06-15T06:12:40.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android adb">
-<meta name="twitter:description" content="android 运行 java main 函数在 android app 环境下运行1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。 1234ClassLoader classLoader = MainActivity.class.getClassLoader()">
+<meta name="twitter:description" content="android 运行 java main 函数在 android app 环境下运行1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。">
 
 
 
@@ -340,6 +340,8 @@
 
       
         <h2 id="android-运行-java-main-函数"><a href="#android-运行-java-main-函数" class="headerlink" title="android 运行 java main 函数"></a>android 运行 java main 函数</h2><h3 id="在-android-app-环境下运行"><a href="#在-android-app-环境下运行" class="headerlink" title="在 android app 环境下运行"></a>在 android app 环境下运行</h3><p>1.在 activity 中，使用 classLoader 调用 com.wanjian.puppet.Main 的 main 方法，可以成功启动但是与下文启动 runtime 相同。</p>
+<a id="more"></a>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader classLoader = MainActivity.class.getClassLoader();</span><br><span class="line">Class&lt;?&gt; loadClass = classLoader.loadClass(&quot;com.wanjian.puppet.Main&quot;);</span><br><span class="line">Method method = loadClass.getMethod(&quot;main&quot;, String[].class);</span><br><span class="line">method.invoke(null, new Object[]&#123;new String[]&#123;&#125;&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>2.在 activity 中创建实例调用</p>
